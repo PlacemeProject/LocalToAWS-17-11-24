@@ -1,0 +1,385 @@
+{% extends "jobseeker/layout.html" %}
+
+{% block title %}
+Job Result {{ keyword1 }}
+{% endblock title %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'css/jobs.css' %}">
+<script src="{% static "js/jobseeker/jobs.js" %}" defer></script>
+{% endblock statics %}
+
+{% block content %}
+
+<div class="search-section">
+    <div class="search-bar">
+        <form method="get" class="search-form" action="{% url 'job_seeker:search' %}">
+            <input type="text" name="q" placeholder="Jobs title / company / Skills" value="{{ keyword1 }}" required>
+            <div class="divider"></div> 
+            <input type="text" name="p" placeholder="Location / remote" value="{{ keyword2 }}">
+            <button type="submit" class='search-button'>Search</button>
+        </form>
+    </div>
+</div>
+<div class="container">
+
+    {% if search %}
+        <strong>Search your dream job</strong>         
+    {% elif page_obj %}
+
+    <div class="filter-container">
+        <h2>Filter Jobs</h2>
+        <div class="filter-options">
+
+            <div class="filter-group">
+                    
+                <h4>Work Mode:</h4>
+                <div class="filter-scroll">
+                <div class="filter-scroll">
+                <label><input type="checkbox" name="workMode" value="On-site"> On-site</label>
+                <label><input type="checkbox" name="workMode" value="Remote"> Remote</label>
+                <label><input type="checkbox" name="workMode" value="Hybrid"> Hybrid</label>
+                </div>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <div class="experience-filter-container">
+                    <h4 for="experienceSlider">Experience (Years):</h4>
+                    <div class="slider-wrapper">
+                        <span id="experienceLabel" class="experience-label">0</span>
+                        <input type="range" id="experienceSlider" min="0" max="21" value="0" oninput="updateExperienceLabel(this.value)">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h4>Salary:</h4>
+                <div class="filter-scroll">
+                <label><input type="checkbox" name="salary" value="0-3 LPA"> 0-3 LPA</label>
+                <label><input type="checkbox" name="salary" value="3-6 LPA"> 3-6 LPA</label>
+                <label><input type="checkbox" name="salary" value="6-10 LPA"> 6-10 LPA</label>
+                <label><input type="checkbox" name="salary" value="10+ LPA"> 10-15 LPA</label>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h4>Company Type:</h4>
+                <div class="filter-scroll">
+                <label><input type="checkbox" name="companyType" value="Startup"> Startup</label>
+                <label><input type="checkbox" name="companyType" value="MNC"> MNC</label>
+                <label><input type="checkbox" name="companyType" value="SME"> SME</label>
+                </div>
+            </div>
+
+            
+            <div class="filter-group">
+                <h4>Role Category:</h4>
+                <div class="filter-scroll">
+                <label><input type="checkbox" name="roleCategory" value="Full-time"> Full-time</label>
+                <label><input type="checkbox" name="roleCategory" value="Part-time"> Part-time</label>
+                <label><input type="checkbox" name="roleCategory" value="Internship"> Internship</label>
+                </div>
+            </div>
+            
+            
+            <div class="filter-group">
+                <h4>Education:</h4>
+                <div class="filter-scroll">
+                <label><input type="checkbox" name="education" value="Undergraduate"> Undergraduate</label>
+                <label><input type="checkbox" name="education" value="Postgraduate"> Postgraduate</label>
+                <label><input type="checkbox" name="education" value="Doctorate"> Doctorate</label>
+                </div>
+            </div>
+
+            
+            <div class="filter-group">
+                <h3>Industry Type</h3>
+                
+                <!-- Visible options -->
+                <div class="filter-option">
+                    <input type="checkbox" id="ind1">
+                    <label for="ind1">Technology</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="ind2">
+                    <label for="ind2">Finance</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="ind3">
+                    <label for="ind3">Healthcare</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="ind4">
+                    <label for="ind4">Education</label>
+                </div>
+                
+                <div id="moreIndOptions" class="hidden">
+                    <div class="filter-option">
+                        <input type="checkbox" id="ind5">
+                        <label for="ind5">Retail</label>
+                    </div>
+        
+                <span id="viewMoreInd" class="view-more" onclick="toggleView('moreIndOptions', 'viewMoreInd')">View More</span>
+                </div>
+            </div>
+                    
+                    
+            <div class="filter-group">
+                <h3>Location</h3>
+                
+                <input type="text" class="filter-search" placeholder="Search" oninput="filterList()">
+                <div class="filter-option">
+                    <input type="checkbox" id="loc1">
+                    <label for="loc1">New York</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="loc2">
+                    <label for="loc2">San Francisco</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="loc3">
+                    <label for="loc3">Chicago</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="loc4">
+                    <label for="loc4">Austin</label>
+                </div>
+                
+                <div id="moreLocOptions" class="hidden">
+                    <div class="filter-option">
+                        <input type="checkbox" id="loc5">
+                        <label for="loc5">Seattle</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="loc6">
+                        <label for="loc6">Boston</label>
+                    </div>
+                </div>
+        
+                <span id="viewMoreLoc" class="view-more" onclick="toggleView('moreLocOptions', 'viewMoreLoc')">View More</span>
+            
+        
+        </div>
+                    
+        <button onclick="filterJobs()" class="filter-button">Filter</button>
+        </div>
+    </div>
+    
+    <div class="job-container">
+        {% if page_obj %}
+            <span class="total-jobs">
+                {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ page_obj.paginator.count }} 
+                <strong>{{ keyword1 }}</strong> Jobs
+            </span>
+        {% endif %}
+        {% for job in page_obj %}
+
+            <a href="/job/?r={{ job.slug }}" target="_blank" class="job-description">
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <h2>{{ job.title }}</h2>
+                            <p class="company-name">{{ job.company.company_name }}</p>
+                        </div>
+                        <div class="company-logo"></div>
+                    </div>
+            
+                    <div class="job-details">
+                        <p class="details-row">
+                            <span><i class="fas fa-map-marker-alt"></i>
+                                {% for location_map in job.job_map_jlm.all %}
+                                {{ location_map.location_id.all|join:", " }}
+                                {% endfor %}                            
+                            </span>
+                            <span><i class="fa fa-briefcase"></i>
+                                {{ job.required_experience|floatformat:0 }} Years
+                            </span>
+                          </p>
+                          <p class="details-row">
+                            <span><i class="fas fa-clock"></i>{{ job.employment_type }}</span>
+                            <span><i class="fa fa-indian-rupee-sign"></i>{{ job.salary|floatformat:0 }}/Month</span>
+                            <span><i class="fa fa-graduation-cap"></i>{{ job.qualifications }}</span>
+                            <span><i class="fa fa-laptop"></i>
+                                {%if job.is_onsite %}
+                                Onsite
+                            {% endif %}
+                            {%if job.is_work_from_home %}
+                                {%if job.is_onsite%}
+                                   ,
+                                {% endif %}
+                                Work from Home
+                            {% endif %}
+                            {%if job.is_hybrid %}
+                                {%if job.is_work_from_home %}
+                                    , 
+                                {% endif %}
+                                Hybrid
+                            {% endif %}                            
+                            </span>
+                          </p>
+                        <div class="skills">
+                            {% comment %} {% if skills_list %}
+                            {% for skill in skills_list %}
+                            {% if skill %}
+                                <span class="key-skills">{{ skill }}</span>
+                            {% else %}
+                            {% endif%}
+                            {% endfor %}
+                            {% else %}
+                                <span class="key-skills">No skills provided</span>
+                            {% endif %} {% endcomment %}
+
+                            <span class="key-skills">{{ job.skills }}</span>
+                            <span class="key-skills">CSS</span>
+                            <span class="key-skills">Java Script</span>
+                            <span class="key-skills">Django</span>
+                        </div>
+                        <p3 class="description">
+                            {{ job.description }}
+                        </p3>
+                    </div>
+            
+                    <div class="job-footer">
+                        <span>{{ job.posted_date|timesince }} ago</span>
+                        <span>{{ job.opening_count }} Openings</span>
+                        <span>{{ job.applied_count }} Applied</span>
+                        <input type="checkbox" id="save{{ job.job_id }}" class="bookmark-checkbox">
+                        <label for="save{{ job.job_id }}">
+                            <i class="fas fa-bookmark bookmark-icon"></i><span class="save-text">Save<span>
+                        </label>
+                        
+                    </div>
+                </div>
+                </a>
+
+        {% endfor %}
+
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?q={{ keyword1 }}&p={{ keyword2 }}&page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+        
+            {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                    <span class="current">{{ num }}</span>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a href="?q={{ keyword1 }}&p={{ keyword2 }}&page={{ num }}">{{ num }}</a>
+                {% elif num == 1 or num == page_obj.paginator.num_pages %}
+                    <a href="?q={{ keyword1 }}&p={{ keyword2 }}&page={{ num }}">{{ num }}</a>
+                {% elif num == page_obj.number|add:'-4' or num == page_obj.number|add:'4' %}
+                    <span>...</span>
+                {% endif %}
+            {% endfor %}
+        
+            {% if page_obj.has_next %}
+                <a href="?q={{ keyword1 }}&p={{ keyword2 }}&page={{ page_obj.next_page_number }}" class="last">Next</a>
+            {% endif %}
+        </div>
+        
+        
+    </div>
+
+    {% else %}
+    <strong>No results found.</strong>  <!-- Display this message if no jobs are found -->
+    {% endif %}
+</div>
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} 
+
+
+
+
+
+{% block content %}
+
+
+<!-- Search Form -->
+<form method="get" action="{% url 'job_seeker:search' %}">
+    <input type="text" name="q" placeholder="jobs title" value="{{ keyword1 }}" required>
+    <input type="text" name="p" placeholder="location" value="{{ keyword2 }}" required>
+    <button type="submit">Find jobss</button>
+</form>
+
+<!-- Job List -->
+<ul>
+    {% if search %}
+        <strong>Search your dream job</strong>         
+    {% elif page_obj %}
+    {% for job in page_obj %}
+        <li>
+            <strong>{{ job.title }}</strong> from {{ job.company.company_name }} company in 
+                {% for location_map in job.job_map_jlm.all %}
+                    {{ location_map.location_id.all|join:", " }}
+                {% endfor %}
+            
+            - <a href="/job/?r={{ job.slug }}" >{{ job.slug }}</a> - {{ job.employment_type }} - {{ job.salary }} - {{ job.opening_count }}
+        </li>
+    {% endfor %}
+    {% else %}
+        <strong>No results found.</strong>  <!-- Display this message if no jobs are found -->
+    {% endif %}
+</ul>
+
+<!-- Pagination -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?q={{ keyword1 }}&p={{keyword2 }}&page=1">&laquo; first</a>
+            <a href="?q={{ keyword1 }}&p={{keyword2 }}&page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?q={{ keyword1 }}&p={{keyword2 }}&page={{ page_obj.next_page_number }}">next</a>
+            <a href="?q={{ keyword1 }}&p={{keyword2 }}&page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock content %} {% endcomment %}

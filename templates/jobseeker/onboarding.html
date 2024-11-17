@@ -1,0 +1,958 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding Employee</title>
+
+    {% comment %} <link href="{% static 'bootstrap/Content/Site.css' %}" rel="stylesheet" type="text/css" /> {% endcomment %}
+    <link href="{% static 'bootstrap/Content/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'bootstrap/Content/bootstrap-datetimepicker.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'bootstrap/Content/toastr/toastr-responsive.css' %}" rel="stylesheet" />
+    <link href="{% static 'bootstrap/Content/toastr/toastr.css' %} rel="stylesheet" />
+    <script src="./Scripts/modernizr-2.8.3.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'bootstrap/Content/Common.css' %} rel="stylesheet" />
+
+
+
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/error.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .hrm_navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            .hrm_navbar a {
+                float: left;
+                font-size: 16px;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+        .hrm_dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+            .hrm_dropdown .hrm_dropbtn {
+                font-size: 16px;
+                border: none;
+                outline: none;
+                color: white;
+                padding: 14px 16px;
+                background-color: inherit;
+                font-family: inherit;
+                margin: 0;
+            }
+
+            .hrm_navbar a:hover, .hrm_dropdown:hover .hrm_dropbtn {
+                background-color: red;
+            }
+
+        .hrm_dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .hrm_dropdown-content a {
+                float: none;
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+                .hrm_dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .hrm_dropdown:hover .hrm_dropdown-content {
+            display: block;
+        }
+        .item1{
+            color:#000;
+        }
+    </style>
+</head>
+<body>
+    {% comment %} <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@ -->
+            </div>
+            </div>
+
+            <div class="hrm_navbar">
+                <a href="@Url.Action("Index", "home")">Home</a>
+                <div class="hrm_dropdown">
+                    <button class="hrm_dropbtn">
+                        Transaction
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="hrm_dropdown-content">
+                        <a href="@Url.Action("Index", "Transaction")">Employee Master</a>
+                        <a href="#">Attendance</a>
+                        <a href="#">Payroll</a>
+                        <a href="#">Leave</a>
+                        <a href="#">Salary Advances</a>
+                    </div>
+                </div>
+                <a href="#services">Reports</a>
+                <a href="#contact">User Management</a> 
+                    <div class="hrm_dropdown">
+                        <button class="hrm_dropbtn">                            
+                            Masters
+                            <i class="fa fa-caret-down"></i>
+                        </button>  
+                        <div class="hrm_dropdown-content">
+                            <a href="#">Designation </a>
+                            <a href="#">Departments</a>
+                            <a href="#">Section</a>
+                            <a href="#">Salary </a>
+                            <a href="#">Division </a>
+                        </div>
+
+
+                    </div>
+
+                
+            </div>
+        </div>
+    </div> {% endcomment %}
+
+
+    <header>
+        <div class="navbar">    
+      <nav>
+        <ul class="menu">
+            <li class="logo">
+                <!-- change the name of logo according to your name of image (mani/vengu) -->
+                <a href="{% url 'job_seeker:home' %}"><img src="{% static 'img/logo.svg' %}" alt="Placenow Logo" style="height: 20px;"></a>
+            </li>
+            <div class="item" style="color:#000;">      
+                <li><a href="{% url 'job_seeker:home' %}" style="color:#000;"><i class="fa-solid fa-house" ></i><div >Home</div></a></li>
+            </div>
+            <div class="item">
+                <li><a href="{% url 'job_seeker:status' %}" style="color:#000;"><i class="fa-solid fa-briefcase"></i><div>Jobs</div></a></li>
+            </div>
+            <div class="item">
+                <li><a href="{% url 'job_seeker:notifications' %}" style="color:#000;"><i class="fa-solid fa-bell"></i><div>Notifications</div></a></li>
+            </div>
+            <li class="toggle" id="menu-toggle"><span class="bars"></span></li>
+            {% if user.is_authenticated %}
+                <li class="item button {% if request.resolver_match.url_name == 'profile' %}active{% endif %}"><a href="{% url 'job_seeker:profile' %}"><i class="fa-solid fa-user"></i>Profile</a></li>
+            {% else %}    
+                <li class="item button {% if request.resolver_match.url_name == 'login' %}active{% endif %}"><a href="{% url 'auth:login' %}">Log In</a></li>        
+            {% endif %}
+            <li class="item">
+                <select name="Usertypes" onchange="location = this.value;">
+                    <option value="{% url 'job_seeker:home' %}">Job Seeker</option>
+                    <option value="{% url 'recruiters:home' %}">Recruiter</option>
+                    <option value="{% url 'administrator:dashboard' %}">Administrator</option>
+                    <option value="{% url 'refer_and_earn:home' %}">Refer and earn</option>
+                </select>
+            </li>
+        </ul>
+    </nav>
+    </div>
+    </header>
+
+    <div class="container body-content" style="margin-bottom:60px;">
+        <div class="container">
+            <div class="row">
+                <table class="tblassetsteps">
+                    <tr>
+                        <td style="padding-left:12px">
+                            <label class="SideLabelBold" style="font-weight: bold;">Employee ID</label>
+                            <label><font size="3" color="red">*</font></label>
+                        </td>
+                        <td style="padding-left:12px">
+                            <input typeof="textbox" id="txtEmpId" class="form-control  k-textbox" type="text">
+                        </td>
+                    </tr>
+                </table>
+    
+    
+    
+            </div>
+            <br />
+    
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel with-nav-tabs panel-default">
+                        <div class="panel-heading">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab1default" data-toggle="tab">Personal details</a></li>
+                                <li><a href="#tab2default" data-toggle="tab">Family Details</a></li>
+                                <li><a href="#tab3default" data-toggle="tab">Educational Details</a></li>
+                                <li><a href="#tab4default" data-toggle="tab">Experience Details</a></li>
+                                <li><a href="#tab5default" data-toggle="tab">Identity Details</a></li>
+                                <li><a href="#tab6default" data-toggle="tab">Salary Details</a></li>
+                                <li><a href="#tab7default" data-toggle="tab">Excel Upload</a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab1default">
+                                    
+                                    <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-start align-items-start d-inline-block" style="padding-left:0px;padding-right:0px;padding-top:0px;padding-bottom:0px;width:100%">
+                                        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-center order-2 d-inline-block bg-white align-top  align-items-start">
+                                            <table border="0" class="tblassetsteps" style="width:100%">
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">First Name</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtFirstName" class="form-control k-textbox " type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Middle Name</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtMiddleName" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Last Name</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtLastName" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Father's Name</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtFatherName" class="form-control k-textbox " type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Mobile No 1 </label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtMobileNo1" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Mobile No 2</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtMobile2" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">MailID</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtMailID" class="form-control k-textbox " type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Gender</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <select class="dropdownCustomcss" id="Gender" name="Gender">
+                                                            <option>Select Gender</option>
+                                                            <option>Male</option>
+                                                            <option>Female</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Marital Status</label>
+                                                    </td>
+                                                    <td>
+                                    
+                                                        <input typeof="textbox" id="txtMaritalStatus" class="form-control  k-textbox" type="text">
+                                    
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">DOB</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="DOBdatepicker" style="position: relative" class="form-control  k-textbox datetimepicker">
+                                                    </td>
+                                    
+                                                    <td>
+                                                        <label class="SideLabelBold">DOJ</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="DOJdatepicker" style="position: relative" class="form-control  k-textbox datetimepicker">
+                                                    </td>
+                                    
+                                                    <td>
+                                                        <label class="SideLabelBold">DOL</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="DOLdatepicker" style="position: relative" class="form-control  k-textbox datetimepicker">
+                                                    </td>
+                                    
+                                    
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-start align-items-start d-inline-block " style="padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:5px;width:100%">
+                                    
+                                        <div class="col-md-6 bg-white border rounded  align-items-start" style="padding-right: 5px;">
+                                            <label class="SideLabelBold" style="font-weight: bold;">Permanent Address</label>
+                                            <table border="0" class="tblassetsteps" style="width:100%">
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Address1</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtPAddress1" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Address2</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtPAddress2" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Address3</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtPAddress3" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">State</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtPState" class="form-control  k-textbox" type="text">
+                                    
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Country</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtPCountry" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Pin Code</label>
+                                                        <label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtPPIN" class="form-control  k-textbox" type="text">
+                                                </tr>
+                                            </table>
+                                    
+                                        </div>
+                                        <div class="col-md-6 border rounded  align-items-start">
+                                            <div>
+                                                <label class="SideLabelBold" style="font-weight: bold;">Communication Address</label>
+                                                <input style="display:inline-block;margin-left:150px" type="checkbox" id="chkUsePaddressAsCommAdd" name="chkUsePaddress" onchange="UsePermanentAddress()" /> <label class="SideLabelBold" id="lblUsePadd">Same as Permanent Address</label>
+                                            </div>
+                                            <table border="0" class="tblassetsteps" style="width:100%">
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Address1</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtCAddress1" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Address2</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtCAddress2" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Address3</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtCAddress3" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">State</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtCState" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Country</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtCCountry" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Pin Code</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtCPincode" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                       
+                                        <div class="row">
+                                            <button id="btnEmpSave" onclick="saveEmpData()" style="color:#254b96 !important;margin-left:1000px" class="btn btn-default">Save & Next</button>
+                                    
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <script src="{% static 'bootstrap/Scripts/jquery-3.4.1.min.js' %}"></script>
+                                    <script src="{% static 'bootstrap/Scripts/toastr/customToastr.js' %}"></script>
+                                    <script src="{% static 'bootstrap/Scripts/toastr/toastr.js' %}"></script>
+
+                                </div>
+                                <div class="tab-pane fade" id="tab2default">
+
+
+
+                                    <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-start align-items-start d-inline-block " style="padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:5px;width:100%">
+                                        <form method="post" id="dynamic_form">
+                                            <span id="result"></span>
+                                            <table class="table-bordered dynamictbl" id="tblEmpFamily">
+                                                <thead>
+                                                    <tr>                    
+                                                        <th width="15%"><label class="SideLabelBold">First Name</label> <label><font size="3" color="red">*</font></label> </th>
+                                                        <th width="12%"><label class="SideLabelBold">Last Name</label></th>
+                                                        <th width="8%"><label class="SideLabelBold">Sex</label> <label><font size="3" color="red">*</font></label> </th>
+                                                        <th width="10%"><label class="SideLabelBold">Relationship <label><font size="3" color="red">*</font></label> </label></th>
+                                                        <th width="10%"><label class="SideLabelBold">DOB</label> <label><font size="3" color="red">*</font></label> </th>
+                                                        <th width="15%"><label class="SideLabelBold">Aadhar #</label> <label><font size="3" color="red">*</font></label> </th>
+                                                        <th width="12%"><label class="SideLabelBold">Mobile Number</label></th>
+                                                        <th width="5%"><label class="SideLabelBold">Action</label></th>
+                                    
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="bindrow">
+                                                </tbody>
+                                    
+                                    
+                                            </table>
+                                    
+                                            <br />
+                                            <div style="float:right">            
+                                                <button type="button" name="add" id="add" class="btn btn-primary"> Add Row</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button id="btnSaveEmpFamilyData" onclick="SaveEmpFamilyData()" style="color:#254b96 !important;" class="btn btn-default">Save & Next</button>
+                                            </div>
+                                    
+                                        </form>
+                                    </div>
+                                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+                                    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.js"></script>
+                                    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.js"></script>
+                                    <script src="~/Scripts/Employee/Employee.js"></script>
+                                    <style>
+                                        .error {
+                                            color: red;
+                                        }
+                                    </style>
+                                    
+                                    <script>
+                                        $(document).ready(function () {
+                                            var count = 2;
+                                            if (count > 1) {
+                                                for (var i = 1; i <= count; i++) {
+                                                    dynamic_field(i);
+                                                }
+                                            }
+                                    
+                                            function dynamic_field(number) {
+                                                var html = '<tr>';
+                                                html += '<td><input type ="text" name="txtFirstName[]"  id="txtFFirstName' + number + '"  class ="form-control dynamic_input name_input" /> </td >';
+                                                html += '<td><input type ="text" name="txtLastName[]" id="txtFLastName' + number + '"  class ="form-control dynamic_input name_input" /> </td >';
+                                                html += '<td><select class="dropdownCustomcss" id="ddlGender' + number + '" name="Gender[]">< option value=""> Select Gender </option > </select > </td >';
+                                    
+                                                var select_list = '<select id="ddlFGender' + number + '" name="Gender[]" class = "dropdownCustomcss">';
+                                                select_list += '<option value="0">Select </option>';
+                                                select_list += '<option value="1">Male </option>';
+                                                select_list += '<option value="2">Female </option>';
+                                                select_list += '<option value="3">Transgender </option>';
+                                                select_list += '<option value="4">NotDisclosed </option>';
+                                                select_list += '</select>';
+                                                html += '<td>' + select_list + '</td>';
+                                    
+                                                var select_list = '<select id="ddlFReleationship' + number + '" name="Releationship[]" class = "dropdownCustomcss">';
+                                                select_list += '<option value="0">Select </option>';
+                                                select_list += '<option value="1">Father </option>';
+                                                select_list += '<option value="2">Mother </option>';
+                                                select_list += '<option value="3">Spouse </option>';
+                                                select_list += '<option value="4">Son </option>';
+                                                select_list += '<option value="4">Daughter </option>';
+                                                select_list += '</select>';
+                                                html += '<td>' + select_list + '</td>';
+                                    
+                                                html += '<td><input type ="text" name="txtdob" style="position: relative" id="txtFamilydob' + number + '"   class ="form-control dynamic_input datetimepicker name_input" /> </td >';
+                                                html += '<td><input type ="text" name="txtAadhar" id="txtFamilyAadhar' + number + '"  class ="form-control dynamic_input name_input"  onChange="validateAadharNumber()"/> </td >';
+                                                html += '<td><input type ="text" name="txtFContactNo" id="txtFContactNo' + number + '"  class ="form-control dynamic_input name_input" /> </td >';
+                                                //if (number > 1) {
+                                                //    html += '<td><button type="button" name="remove" id="remove" class="btn btn-danger"> Remove </button> </td >  </tr>';
+                                                //    $('#bindrow').append(html);
+                                                //}
+                                                //else {
+                                                //    html += '<td><button type="button" name="add" id="add" class="btn btn-success"> Add </button> </td>  </tr>';
+                                                //    $('#bindrow').append(html);
+                                                //}
+                                                if (number > 1) {
+                                                    html += '<td><button class="deleteButton " id="remove" type="button"></button></td >  </tr>';
+                                                }
+                                                $('#bindrow').append(html);
+                                            }
+                                    
+                                            $('#add').click(function () {
+                                                count++;
+                                                dynamic_field(count);
+                                            });
+                                    
+                                    
+                                            $(document).on('click', '#remove', function () {
+                                                count--;
+                                                //dynamic_field(count);
+                                                $(this).closest('tr').remove();
+                                            });
+                                    
+                                    
+                                        });
+                                    
+                                    
+                                        $("#dynamic_form").validate({
+                                            rules: {
+                                                Name: "required"
+                                            }
+                                        });
+                                    
+                                    </script>
+
+
+
+                                </div>
+                                <div class="tab-pane fade" id="tab3default">
+
+
+                                    <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-start align-items-start d-inline-block" style="padding-left:0px;padding-right:0px;padding-top:0px;padding-bottom:0px;width:100%">
+                                        <form method="post" id="form_Education">
+                                            <span id="result"></span>
+                                            <table class="table-bordered dynamictbl" id="user_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="15%"><label class="SideLabelBold">Course</label></th>
+                                                        <th width="15%"><label class="SideLabelBold">Specialization</label></th>
+                                                        <th width="10%"><label class="SideLabelBold">Name of the College / School</label></th>
+                                                        <th width="10%"><label class="SideLabelBold">Board/University</label></th>
+                                                        <th width="10%"><label class="SideLabelBold">Year of Passing</label></th>
+                                                        <th width="5%"><label class="SideLabelBold">% of Marks Scored</label></th>
+                                    
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="bindrowEdu">
+                                                </tbody>
+                                    
+                                    
+                                            </table>
+                                    
+                                    
+                                            <div class="form-group">
+                                                <label>First check in:</label>
+                                                <input type="text" class="form-control form-control-1 input-sm from" placeholder="CheckIn">
+                                            </div>
+                                    
+                                            <br />
+                                            <div style="float:right">
+                                                <input type="submit" name="save" id="btnsaveedu" class="btn btn-primary" value="save" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button type="button" name="add" id="btnaddEdu" class="btn btn-primary"> Add Row</button>
+                                    
+                                            </div>
+                                    
+                                        </form>
+                                    </div>
+                                    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                                    <script>
+                                        $(document).ready(function () {
+                                            var count = 4;
+                                            if (count > 1) {
+                                                for (var i = 1; i <= count; i++)
+                                                    {
+                                                        dynamic_fieldEdu(i);
+                                                    }
+                                            }
+                                    
+                                            function dynamic_fieldEdu(number) {
+                                                var html = '<tr>';
+                                                html += '<td><input type ="text" name="Course[]" class ="form-control dynamic_input" /> </td >';
+                                                html += '<td><input type ="text" name="Specialization[]" class ="form-control dynamic_input" /> </td >';
+                                                html += '<td><input type ="text" name="Colleage[]" class ="form-control dynamic_input" /> </td >';
+                                                html += '<td><input type ="text" name="University[]" class ="form-control dynamic_input" /> </td >';
+                                                html += '<td><input type ="text" name="yop[]" style="position: relative"  class ="form-control dynamic_input monthyear" /> </td >';            
+                                                html += '<td><input type ="text" name="Mark[]" class ="form-control dynamic_input" /> </td >';
+                                                $('#bindrowEdu').append(html);
+                                                //if (number > 1) {
+                                                //    html += '<td><button class="deleteButton " id="remove" type="button"></button></td >  </tr>';
+                                                //    $('#bindrow').append(html);
+                                                //}
+                                            }
+                                    
+                                            $('#btnaddEdu').click(function () {
+                                                count++;
+                                                dynamic_fieldEdu(count);
+                                            });
+                                    
+                                    
+                                            $(document).on('click', '#remove', function () {
+                                                count--;
+                                                //dynamic_field(count);
+                                                $(this).closest('tr').remove();
+                                            });
+                                    
+                                    
+                                    
+                                            $('#dynamic_form').on('submit', function (event) {
+                                                event.preventDefault();
+                                    
+                                            })
+                                        });
+                                    </script>                                    
+
+                                </div>
+                                <div class="tab-pane fade" id="tab4default">
+
+
+
+                                    <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-start align-items-start d-inline-block" style="padding-left:0px;padding-right:0px;padding-top:0px;padding-bottom:0px;width:100%">
+                                        <form method="post" id="form_Experiance">
+                                            <span id="result"></span>
+                                            <table class="table-bordered dynamictbl" id="user_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="15%"><label class="SideLabelBold">Company Name</label></th>
+                                                        <th width="15%"><label class="SideLabelBold">DOJ</label></th>
+                                                        <th width="10%"><label class="SideLabelBold">DOL</label></th>
+                                                        <th width="10%"><label class="SideLabelBold">Designation</label></th>
+                                                        <th width="10%"><label class="SideLabelBold">Reason For leavning</label></th>
+                                                        <th width="5%"><label class="SideLabelBold">Action</label></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="bindrowExp">
+                                                </tbody>
+                                    
+                                    
+                                            </table>
+                                    
+                                            <br />
+                                            <div style="float:right">
+                                                <input type="submit" name="save" id="btnsaveexp" class="btn btn-primary" value="save" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button type="button" name="add" id="btnaddExp" class="btn btn-primary"> Add Row</button>
+                                    
+                                            </div>
+                                    
+                                        </form>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            var count = 4;
+                                            if (count > 1) {
+                                                for (var i = 1; i <= count; i++)
+                                                    {
+                                                    dynamic_fieldExp(i);
+                                                    }
+                                            }
+                                    
+                                            function dynamic_fieldExp(number) {
+                                                var html = '<tr>';
+                                                html += '<td><input type ="text" name="CompanyName[]" class ="form-control dynamic_input" /> </td >';
+                                                html += '<td><input type ="text" name="DOJ[]" class ="form-control dynamic_input" /> </td >';
+                                                html += '<td><input type ="text" name="DOL[]" class ="form-control dynamic_input" /> </td >';
+                                                html += '<td><input type ="text" name="Designation[]" class ="form-control dynamic_input" /> </td >';
+                                                html += '<td><input type ="text" name="ReasonForleaving[]" class ="form-control dynamic_input" /> </td >';
+                                                if (number > 1) {
+                                                    html += '<td><button class="deleteButton " id="removeExp" type="button"></button></td >  </tr>';
+                                                    $('#bindrowExp').append(html);
+                                                }
+                                            }
+                                    
+                                            $('#btnaddExp').click(function () {
+                                                count++;
+                                                dynamic_fieldExp(count);
+                                            });
+                                    
+                                    
+                                            $(document).on('click', '#removeExp', function () {
+                                                count--;
+                                                //dynamic_field(count);
+                                                $(this).closest('tr').remove();
+                                            });
+                                    
+                                    
+                                    
+                                            $('#dynamic_form').on('submit', function (event) {
+                                                event.preventDefault();
+                                    
+                                            })
+                                        });
+                                    </script>
+                                    
+                                    
+
+
+                                </div>
+                                <div class="tab-pane fade" id="tab5default">
+                                    
+
+
+                                    <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-start align-items-start d-inline-block" style="padding-left:0px;padding-right:0px;padding-top:0px;padding-bottom:0px;width:100%">
+                                        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-center order-2 d-inline-block bg-white align-top  align-items-start">
+                                            <table border="0" class="tblassetsteps" style="width:100%">
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Aadhar Number</label> <label><font size="3" color="red">*</font></label>
+                                                       
+                                                    </td>
+                                           
+                                                    <td>
+                                                        <input typeof="textbox" placeholder="Enter Aadhar Number" id="txtAadhar" class="form-control k-textbox " type="text">
+                                                       
+                                                    
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">PAN Number</label><label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" placeholder="Enter PAN Number" id="txtPANNo" class="form-control  k-textbox" type="text">
+                                                      
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">PF Number</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" placeholder="Enter PF Number" id="txtPF" class="form-control  k-textbox" type="text">
+                                                      
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">PFUAN</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" placeholder="Enter PFUAN Number" id="txtPFUAN" class="form-control k-textbox " type="text">
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">ESIC Number </label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" placeholder="Enter ESIC Number" id="txtESICNo" class="form-control  k-textbox" type="text">
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Bank Account Number</label><label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" placeholder="Enter Bank Account Number" id="txtBankAccountNo" class="form-control  k-textbox numberonly" type="text">
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Bank Name</label><label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" placeholder="Enter Bank Number" id="txtBankName" class="form-control k-textbox " type="text">
+                                                       
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">IFSC Code</label><label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" placeholder="Enter IFSC Number" id="txtIFSCCode" class="form-control k-textbox " type="text">
+                                                   
+                                                    </td>
+                                    
+                                                    <td>
+                                                        <label class="SideLabelBold">Nationality</label><label><font size="3" color="red">*</font></label>
+                                                    </td>
+                                    
+                                    
+                                                    <td>
+                                                        <input typeof="textbox"placeholder="Enter Nationality" id="txtNationality" class="form-control k-textbox " type="text">
+                                                    </td>
+                                    
+                                                </tr>
+                                    
+                                            </table>
+                                            <br/>
+                                            <br/>
+                                            <div class="row">
+                                                <button id="btnlegelData" onclick="saveLegalData()" style="color:#254b96 !important;margin-left:1000px" class="btn btn-default">Save & Next</button>
+                                    
+                                            </div>
+                                      
+                                     
+                                    </div>
+                                    </div>
+                                    
+                                    
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.numberonly').keypress(function (e) {
+                                                var charCode = (e.which) ? e.which : event.keyCode
+                                                if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                                                    return false;
+                                    
+                                            });
+                                    
+                                        });
+                                    
+                                    </script>
+
+
+                                </div>
+                                <div class="tab-pane fade" id="tab6default">
+                                    
+
+                                    <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-start align-items-start d-inline-block" style="padding-left:0px;padding-right:0px;padding-top:0px;padding-bottom:0px;width:100%">
+                                        <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 align-self-center order-2 d-inline-block bg-white align-top  align-items-start">
+                                            <table border="0" class="tblassetsteps" style="width:100%">
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Basic Pay</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtBasicPay" class="form-control k-textbox " type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Fixed DA</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtFDAllowance" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Variable Dearness Allowance</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtVDA" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">House Rent Allowance (HRA)</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtHRA" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Personal Allowance</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtPersonnalAllowance" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Conveyance Allowance</label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtConveyance Allowance" class="form-control k-textbox " type="text">
+                                                    </td>
+                                                   
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label class="SideLabelBold">Special Allowance </label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtSpecialallowance" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                    <td>
+                                                        <label class="SideLabelBold">Washing Allowance </label>
+                                                    </td>
+                                                    <td>
+                                                        <input typeof="textbox" id="txtWashingallowance" class="form-control  k-textbox" type="text">
+                                                    </td>
+                                                </tr>
+                                                
+                                            </table>
+                                
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="tab-pane fade" id="tab7default">Not Found</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+            
+    
+        </div>
+    
+        <hr />
+        <footer>
+            <p>&copy;  Placenow</p>
+        </footer>
+    </div>
+
+
+    <script src="{% static 'bootstrap/Scripts/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/Scripts/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap/Scripts/moment.min.js' %}"></script>
+    <script src="{% static 'bootstrap/Scripts/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'bootstrap/Scripts/toastr/customToastr.js' %}"></script>
+    <script src="{% static 'bootstrap/Scripts/toastr/toastr.js' %}"></script>
+    <script src="{% static 'bootstrap/Scripts/Common.js' %}"></script>
+    <script src="{% static 'bootstrap/Scripts/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'bootstrap/Scripts/Employee/Employee.js?ver=5' %}"></script>
+    <!-- @RenderSection("scripts", required: false) -->
+  
+</body>
+</html>

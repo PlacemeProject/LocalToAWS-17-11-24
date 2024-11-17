@@ -1,0 +1,561 @@
+{% extends "jobseeker/layout.html" %}
+
+{% block title %}
+Application Status
+{% endblock title %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'css/status-bar.css' %}">
+<link rel="stylesheet" href="{% static 'css/status-box.css' %}">
+<link rel="stylesheet" href="{% static 'css/status-menu.css' %}">
+<link rel="stylesheet" href="{% static 'css/status-right.css' %}">
+
+<style>
+    .dev-list {
+        display: none;
+    }        
+    .dev-list.active {
+        display: flex;
+    }
+
+</style>
+{% endblock statics %}
+
+
+{% block content %}
+
+<div class="all-menu">
+    <ul class="menu-item">
+        <li class="save"><a href="#" onclick="showSection('saved')">Saved Jobs(3)</a></li>
+        <li class="applied"><a href="#" onclick="showSection('applied')">Applied Jobs(3)</a></li>
+        <li class="offer"><a href="#" onclick="showSection('offered')">My Offers(0)</a></li>
+    </ul>
+</div>
+
+<section class="dev-list" id="saved">
+
+
+
+
+
+<!-----------right side dev-info------------------------------------------------------------------->
+<div class="right">
+
+
+
+
+    <div class="right-insert">
+
+
+        <div class="right-dev-info">
+
+
+            
+            <!--completed fixed right box-->
+            <!--recommendation box text-->
+            <div class="right-recommdation-info">
+                <div class="right-recommendation-div">
+                    <h1 class="right-recommdation-text">Saved Jobs page is work in progress due to API INTEGRATION</h1>
+                 </div>
+                 <!--create recommendation box start-->
+                 <div class="right-rec-box-scroll scroll">
+
+
+                 </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+    
+
+</div>
+</section>
+<!--  -->
+<!--  -->
+<!--  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="dev-list" id="applied">
+
+
+<div class="left">
+
+    <!--box 1 dev-info-left-->
+    <div class="active-box">
+        <div class="dev-detail-2">
+
+            <div class="dev-detail-2-inside">
+        
+                <h1 class="dev-name">JUNIOR DEVELOPER1</h1>
+                <p class="company-name">Kavery technologes</p>
+                <div class="application">
+                    <i class="fa-sharp fa-solid fa-circle-check"></i>
+                    <p class="application-saved">Application sent</p>
+                </div>
+            </div>
+            <div class="dev-box2">
+                <div class="dev-box2-profile">
+
+                </div>
+                <div class="dev-box2-a">
+                    <a class="view-status" href="#"><i class='fas fa-arrow-right' style='font-size:24px;margin-left: 30px;'></i></a>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    {% for job in jobs %}
+
+        <div class="dev-detail-2">
+
+            <div class="dev-detail-2-inside">
+        
+                <h1 class="dev-name">{{ job.job.title }}</h1>
+                <p class="company-name">{{ job.job.company.company_name }}</p>
+                <div class="application">
+                    <i class="fa-sharp fa-solid fa-circle-check"></i>
+                    <p class="application-saved">Application sent</p>
+                </div>
+            </div>
+            <div class="dev-box2">
+                <div class="dev-box2-profile">
+
+                </div>
+                <div class="dev-box2-a">
+                    <a class="view-status" href="#">View Status</a>
+                </div>
+            </div>
+            
+            
+        </div>
+        {% endfor %}
+
+</div>
+
+
+<!-----------right side dev-info------------------------------------------------------------------->
+<div class="right">
+
+
+
+
+    <div class="right-insert">
+
+
+        <div class="right-dev-info">
+
+
+            <div class="right-dev-info-fixed-1">
+
+                <!--dev-name-company-and about-job-->
+                <div class="right-dev-info-fixed-1-1">
+
+                    <div class="right-dev-info-fixed-1-part1">
+
+                        <h1 class="right-fixied-name">JUNIOR DEVELOPER</h1>
+                        <p class="right-fixied-company">Kavery technologes</p>
+                    
+                        <div class="right-a-div">
+                            <a href="#" class="right-a">
+                                View similar jobs
+                            </a>
+                        </div>
+                    </div>
+                    <div class="right-dev-info-fixed-1-part2">
+                       <div class="right-dev-info-about-job">
+                            <a class="a-aboutjob">About job</a>
+                       </div> 
+                    </div>  
+                </div>
+
+
+
+
+
+                <!-----fixed-box-2-->
+                <div class="right-dev-info-fixed-1-2">
+                    <div class="application-div-text">
+                        <p class="application-status-p">Application Status</p>
+                    </div>
+                </div>
+
+                <!---pending status-bar-->
+                <div class="bar-set">
+                    <div class="progress-track">
+                        <ul id="progressbar">
+                            <li class="step0 active " id="step1">Job Applied <p>12 Feb 24</p></li>
+                            <li class="step0 text-center" id="step2">Application View <p></p></li>
+                            <li class="step0 text-center" id="step2-1">Shortlisted<p></p></li>
+                            <li class="step0 text-right" id="step3">Interviewed<p></p></li>
+                            <li class="step0 text-right" id="step4">Selected</li>
+                        </ul>
+                    </div>
+                </div> 
+            </div>
+            <!--completed fixed right box-->
+            <!--recommendation box text-->
+            <div class="right-recommdation-info">
+                <div class="right-recommendation-div">
+                    <h1 class="right-recommdation-text">RECOMMENDED JOBS</h1>
+                 </div>
+                 <!--create recommendation box start-->
+                 <div class="right-rec-box-scroll">
+
+                    <div class="right-rec-box-1">
+
+                        <div class="right-rec-box-width">
+                            
+                            <div class="right-rec-box-name">
+
+                                <div class="right-rec-box-name-1">
+                                    <p class="right-rec-box-dev-name">JUNIOR DEVELOPER</p>
+                                    <p class="right-rec-box-dev-company">KAVERY TECH</p>
+                                </div>
+                                <div class="right-rec-box-photo">
+                                    <div class="photo">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--dev info box-2 location skill and page-->
+                            <div class="right-rec-box-info">
+                                <div class="right-rec-box-info-personal">
+                                    <ul class="right-box-ul">
+                                        <li><i class="fa-sharp fa-solid fa-location-dot"></i> Bangalore </li>
+                                        <li>|</li>
+                                        <li><i class="fa-solid fa-suitcase"></i> 0-2 Years  </li>
+                                        <li>|</li>
+                                        <li><i class="fa-solid fa-clock"></i> Full Time </li>
+                                        <li>|</li>
+                                        <li> RS 30000/month</li>
+                                    </ul>
+                                </div>
+
+
+                                <div class="right-rec-box-info-language">
+                                    <ul class="right-box-ul-lag">
+                                        <li>html</li>
+                                        <li>css</li>
+                                        <li>javaScript</li>
+                                        <li>React.js</li>
+                                        <li>node.js</li>
+                                        
+                                    </ul>
+                                </div>
+
+
+
+
+
+                                <div class="right-rec-box-info-text">
+                                    <p class="right-para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eligendi maiores porro laudantium nostrum ab explicabo sapiente.</p>
+
+                                </div>
+
+
+
+
+
+
+                                
+                            </div>
+
+                             <div class="right-rec-box-info-adv">
+                                <ul class="right-rec-box-adv-ul">
+                                    <li>4 days ago</li>
+                                    <li>30 opening</li>
+                                    <li>10 Applied</li>
+                                </ul>
+                            </div> 
+
+
+
+
+
+
+                        </div>
+                        
+
+
+                    </div>
+
+
+
+
+
+                    <!--box-2-->
+                    <div class="right-rec-box-1">
+
+                        <div class="right-rec-box-width">
+                            
+                            <div class="right-rec-box-name">
+
+                                <div class="right-rec-box-name-1">
+                                    <p class="right-rec-box-dev-name">JUNIOR DEVELOPER</p>
+                                    <p class="right-rec-box-dev-company">KAVERY TECH</p>
+                                </div>
+                                <div class="right-rec-box-photo">
+                                    <div class="photo">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--dev info box-2 location skill and page-->
+                            <div class="right-rec-box-info">
+                                <div class="right-rec-box-info-personal">
+                                    <ul class="right-box-ul">
+                                        <li><i class="fa-sharp fa-solid fa-location-dot"></i> Bangalore </li>
+                                        <li>|</li>
+                                        <li><i class="fa-solid fa-suitcase"></i> 0-2 Years  </li>
+                                        <li>|</li>
+                                        <li><i class="fa-solid fa-clock"></i> Full Time </li>
+                                        <li>|</li>
+                                        <li> RS 30000/month</li>
+                                    </ul>
+                                </div>
+
+
+                                <div class="right-rec-box-info-language">
+                                    <ul class="right-box-ul-lag">
+                                        <li>html</li>
+                                        <li>css</li>
+                                        <li>javaScript</li>
+                                        <li>React.js</li>
+                                        <li>node.js</li>
+                                        
+                                    </ul>
+                                </div>
+
+
+
+
+
+                                <div class="right-rec-box-info-text">
+                                    <p class="right-para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa eligendi maiores porro laudantium nostrum ab explicabo sapiente.</p>
+
+                                </div>
+
+
+
+
+
+
+                                
+                            </div>
+
+                             <div class="right-rec-box-info-adv">
+                                <ul class="right-rec-box-adv-ul">
+                                    <li>4 days ago</li>
+                                    <li>30 opening</li>
+                                    <li>10 Applied</li>
+                                </ul>
+                            </div> 
+
+
+
+
+
+
+                        </div>
+                        
+
+
+                    </div>
+
+                 </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+    
+
+</div>
+</section>
+<!--  -->
+<!--  -->
+<!--  -->
+
+
+
+
+
+
+
+
+
+<section class="dev-list" id="offered">
+
+
+<div class="left">
+
+    <!--box 1 dev-info-left-->
+    <div class="active-box">
+        <div class="dev-detail-2">
+
+            <div class="dev-detail-2-inside">
+        
+                <h1 class="dev-name">Offered Jobs</h1>
+                <p class="company-name">Kavery technologes</p>
+                <div class="application">
+                    <i class="fa-sharp fa-solid fa-circle-check"></i>
+                    <p class="application-saved">Job Offer accepted</p>
+                </div>
+            </div>
+            <div class="dev-box2">
+                <div class="dev-box2-profile">
+
+                </div>
+                <div class="dev-box2-a">
+                    <a class="view-status" href="#"><i class='fas fa-arrow-right' style='font-size:24px;margin-left: 30px;'></i></a>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+
+</div>
+
+
+<!-----------right side dev-info------------------------------------------------------------------->
+<div class="right">
+
+
+
+
+    <div class="right-insert">
+
+
+        <div class="right-dev-info">
+
+
+            <div class="right-dev-info-fixed-1">
+
+                <!--dev-name-company-and about-job-->
+                <div class="right-dev-info-fixed-1-1">
+
+                    <div class="right-dev-info-fixed-1-part1">
+
+                        <h1 class="right-fixied-name">JUNIOR DEVELOPER</h1>
+                        <p class="right-fixied-company">Kavery technologes</p>
+                    
+                        <div class="right-a-div">
+                            <a href="#" class="right-a">
+                                View similar jobs
+                            </a>
+                        </div>
+                    </div>
+                    <div class="right-dev-info-fixed-1-part2">
+                       <div class="right-dev-info-about-job">
+                            <a class="a-aboutjob">About job</a>
+                       </div> 
+                    </div>  
+                </div>
+
+
+
+
+
+                <!-----fixed-box-2-->
+                <div class="right-dev-info-fixed-1-2">
+                    <div class="application-div-text">
+                        <p class="application-status-p">Application Status</p>
+                    </div>
+                </div>
+
+                <!---pending status-bar-->
+                <div class="bar-set">
+                    <div class="progress-track">
+                        <ul id="progressbar">
+                            <li class="step0 active " id="step1">Offered <p>12 Feb 24</p></li>
+                            <li class="step0 active text-center" id="step2">Offer Accepted<p>24 feb 24</p></li>
+                            <li class="step0 text-center" id="step2-1">Onboarding await<p></p></li>
+<!--                                         <li class="step0 active text-right" id="step3"><span id="three">Joining Await<p>27 Feb 24</p></span></li> -->
+                            <li class="step0 text-right" id="step4">Joining Await</li>
+                        </ul>
+                        <div class="button" style="display: flex;justify-content: space-around;position: relative;bottom: 20px;">
+                                <a href="{% url 'job_seeker:onboarding' %}" class="">Click here to process Onboarding</a>
+                        </div>
+                    </div>            
+                </div>     
+            </div>
+            <!--completed fixed right box-->
+            <!--recommendation box text-->
+            
+
+        </div>
+
+
+
+    </div>
+    
+
+</div>
+</section>
+<!--  -->
+<!--  -->
+<!--  -->
+
+
+
+
+
+
+
+
+
+
+
+<script>
+showSection('applied')
+function showSection(sectionId) {
+// Hide all sections
+var sections = document.querySelectorAll('.dev-list');
+sections.forEach(function(section) {
+section.classList.remove('active');
+});
+
+// Show the selected section
+var activeSection = document.getElementById(sectionId);
+activeSection.classList.add('active');
+}
+</script>
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+

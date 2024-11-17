@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+{% load static %}
+{% comment %} {% load custom_filters %} {% endcomment %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile</title>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/create-profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/error.css' %}">
+    <script src="{% static 'js/nav.css' %}" defer></script>
+    <script src="{% static 'js/error.css' %}" defer></script>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+            <li class="logo">
+                <!-- change the name of logo according to your name of image (mani/vengu) -->
+                <a href="#"><img src="{% static 'img/logo.jpeg' %}" alt="Placeme Logo" style="height: 40px;"></a>
+            </li>
+            <li class="item"><a href="{% url 'job_seeker:home' %}">Home</a></li>
+            <li class="item"><a href="{% url 'job_seeker:my-job' %}">Jobs</a></li>
+            <li class="item"><a href="{% url 'job_seeker:profile' %}">Notifications</a></li>
+            <li class="item"><a href="{% url 'job_seeker:profile' %}">Profile</a></li>
+            <li class="toggle" id="menu-toggle"><span class="bars"></span></li>
+            <li class="item button"><a href="{% url 'auth:login' %}">Log In</a></li>
+            <li class="item">
+                <select name="Usertypes" onchange="location = this.value;">
+                    <option value="{% url 'job_seeker:home' %}">Job Seeker</option>
+                    <option value="{% url 'recruiters:home' %}">Recruiter</option>
+                    <option value="{% url 'administrator:dashboard' %}">Administrator</option>
+                    <option value="{% url 'refer_and_earn:home' %}">Refer and earn</option>
+                </select>
+            </li>
+        </ul>
+    </nav>
+        <main>
+            <div class="profile-container">
+                <div class="profile-sidebar">
+
+                </div>
+                <div class="profile-content">
+                    
+                    {% if messages %}
+                    {% for message in messages %}
+                      <div class='alert alert-{{ message.tags }}'>
+                        <span class="closebtn">&times;</span>
+                          {{ message }}
+                      </div>    
+                    {% endfor %}
+                  {% endif %}
+
+                    <form method="post" action="#">
+                        {% csrf_token %}
+                        <section id="personal-info">
+                            <div class="profile-content-title">
+                                <h3>Personal Info</h3>
+                            </div>
+                            <div class="profile-content-column">
+                                <div class="form-group">
+                                    <label for="firstname">First Name</label>
+                                    <input type="text" id="firstname" name="firstname" value="{{ candidate.firstname|default_if_none:'' }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname">Last Name</label>
+                                    <input type="text" id="lastname" name="lastname" value="{{ candidate.lastname|default_if_none:'' }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" name="gender">
+                                        <option value="">Select</option>
+                                        <option value="male" {% if candidate.gender == 'male' %}selected{% endif %}>Male</option>
+                                        <option value="female" {% if candidate.gender == 'female' %}selected{% endif %}>Female</option>
+                                        <option value="other" {% if candidate.gender == 'other' %}selected{% endif %}>Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dob">Date of Birth</label>
+                                    <input type="date" id="dob" name="dob" value="{{ candidate.dob|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="linkedin_profile">LinkedIn Profile</label>
+                                    <input type="url" id="linkedin_profile" name="linkedin_profile" value="{{ candidate.linkedin_profile|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input type="text" id="country" name="country" value="{{ candidate.country|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input type="text" id="state" name="state" value="{{ candidate.state|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" name="city" value="{{ candidate.city|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    <input type="text" id="address" name="address" value="{{ candidate.address|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="marital_status">Marital Status</label>
+                                    <select id="marital_status" name="marital_status">
+                                        <option value="">Select</option>
+                                        <option value="single" {% if candidate.marital_status == 'single' %}selected{% endif %}>Single</option>
+                                        <option value="married" {% if candidate.marital_status == 'married' %}selected{% endif %}>Married</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+                    
+                        <section id="educational-info">
+                            <div class="profile-content-title">
+                                <h3>Education</h3>
+                            </div>
+                            <div class="profile-content-column">
+                                <div class="form-group">
+                                    <label for="highest_qualification">Highest Qualification</label>
+                                    <input type="text" id="highest_qualification" name="highest_qualification" value="{{ candidate.highest_qualification|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="specialization">Specialization</label>
+                                    <input type="text" id="specialization" name="specialization" value="{{ candidate.specialization|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="year_of_graduation">Year of Graduation</label>
+                                    <input type="number" id="year_of_graduation" name="year_of_graduation" value="{{ candidate.year_of_graduation|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="university_name">University Name</label>
+                                    <input type="text" id="university_name" name="university_name" value="{{ candidate.university_name|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Secondary_grade">Secondary Grade</label>
+                                    <input type="number" id="Secondary_grade" name="Secondary_grade" step="0.01" value="{{ candidate.Secondary_grade|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="higher_secondary_grade">Higher Secondary Grade</label>
+                                    <input type="number" id="higher_secondary_grade" name="higher_secondary_grade" step="0.01" value="{{ candidate.higher_secondary_grade|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="diploma_grade">Diploma Grade</label>
+                                    <input type="number" id="diploma_grade" name="diploma_grade" step="0.01" value="{{ candidate.diploma_grade|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Bachelors_grade">Bachelor's Grade</label>
+                                    <input type="number" id="Bachelors_grade" name="Bachelors_grade" step="0.01" value="{{ candidate.Bachelors_grade|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="masters_grade">Master's Grade</label>
+                                    <input type="number" id="masters_grade" name="masters_grade" step="0.01" value="{{ candidate.masters_grade|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="doctorate_grade">Doctorate Grade</label>
+                                    <input type="number" id="doctorate_grade" name="doctorate_grade" step="0.01" value="{{ candidate.doctorate_grade|default_if_none:'' }}">
+                                </div>
+                            </div>
+                        </section>
+                    
+                        <section id="work-info">
+                            <div class="profile-content-title">
+                                <h3>Experience</h3>
+                            </div>
+                            <div class="profile-content-column">
+                                <div class="form-group">
+                                    <label for="present_ctc">Present CTC</label>
+                                    <input type="number" id="present_ctc" name="present_ctc" step="0.01" value="{{ candidate.present_ctc|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="present_take_home">Present Take Home</label>
+                                    <input type="number" id="present_take_home" name="present_take_home" step="0.01" value="{{ candidate.present_take_home|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expected_ctc">Expected CTC</label>
+                                    <input type="number" id="expected_ctc" name="expected_ctc" step="0.01" value="{{ candidate.expected_ctc|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expected_take_home">Expected Take Home</label>
+                                    <input type="number" id="expected_take_home" name="expected_take_home" step="0.01" value="{{ candidate.expected_take_home|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="monthly_incentive">Monthly Incentive</label>
+                                    <input type="number" id="monthly_incentive" name="monthly_incentive" step="0.01" value="{{ candidate.monthly_incentive|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="other_yearly_pay">Other Yearly Pay</label>
+                                    <input type="number" id="other_yearly_pay" name="other_yearly_pay" step="0.01" value="{{ candidate.other_yearly_pay|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="skill">Skills</label>
+                                    <textarea id="skill" name="skill" rows="4">{{ candidate.skill|default_if_none:'' }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="present_designation">Present Designation</label>
+                                    <input type="text" id="present_designation" name="present_designation" value="{{ candidate.present_designation|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="work_experience">Work Experience (Years)</label>
+                                    <input type="number" id="work_experience" name="work_experience" step="0.01" value="{{ candidate.work_experience|default_if_none:'' }}">
+                                </div>
+                            </div>
+                        </section>
+                    
+                        <section id="additional-info">
+                            <div class="profile-content-title">
+                                <h3>Additional Info</h3>
+                            </div>
+                            <div class="profile-content-column">
+                                <div class="form-group">
+                                    <label for="is_rotate_shift">Willing to Rotate Shift</label>
+                                    <input type="checkbox" id="is_rotate_shift" name="is_rotate_shift" {% if candidate.is_rotate_shift %}checked{% endif %}>
+                                </div>
+                                <div class="form-group">
+                                    <label for="preferred_location">Preferred Location</label>
+                                    <input type="text" id="preferred_location" name="preferred_location" value="{{ candidate.preferred_location|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="is_relocate">Willing to Relocate</label>
+                                    <input type="checkbox" id="is_relocate" name="is_relocate" {% if candidate.is_relocate %}checked{% endif %}>
+                                </div>
+                                <div class="form-group">
+                                    <label for="professional_summary">Professional Summary</label>
+                                    <textarea id="professional_summary" name="professional_summary" rows="4">{{ candidate.professional_summary|default_if_none:'' }}</textarea>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="profile-content-column">
+                        <div class="form-group">
+                        <button type="submit">Update</button>
+                        <div>
+                        </div>
+                    </form>
+             
+                </div>
+
+            </div>
+        </div>
+        <div class="profile-sidebar">
+
+        </div>
+        </div>
+        </main>
+        <footer>
+            <div class="footer-content">
+                <span>© 2024 Placeme</span>
+                <a href="#">Terms</a>
+                <a href="#">Privacy Centre and Ad Choices</a>
+            </div>
+        </footer>
+</body>
+</html>

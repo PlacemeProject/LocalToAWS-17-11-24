@@ -1,0 +1,341 @@
+{% extends "jobseeker/layout.html" %}
+
+{% block title %}
+Hi {{ candidate.firstname }} {{ candidate.lastname }}
+{% endblock title %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'css/profile2.css' %}">
+<link rel="stylesheet" href="{% static 'css/model.css' %}">
+{% endblock statics %}
+
+
+{% block content %}
+    <main>
+        <div class="profile-container">
+            <div class="profile-content-links">
+                <div class="profile-picture">
+                    {% if doc.profile_picture %}
+                        <img src="{{doc.profile_picture}}" alt="profile pic" width="100%">
+                    {% else %}
+                        <img src="{% static 'img/image.png' %}" alt="profile pic" width="100%">
+                    {% endif %}
+                      <div class="profile-pic-middle">
+                        <button class="profile-pic-edit">Edit</button>
+                      </div>
+                </div>
+                
+                <!-- Username -->
+                <div class="username">{{ candidate.firstname }} {{ candidate.lastname }}</div>
+                <!-- <div class="username">{{ candidate.firstname }} {{ candidate.lastname }}</div> -->
+
+                <!-- Section Links -->
+                <div class="profile-links">
+                    <a href="#personal-info" class="profile-link">Personal Info</a>
+                    <a href="#education" class="profile-link">Education</a>
+                    <a href="#skills" class="profile-link">Skills</a>
+                    <a href="#experience" class="profile-link">Experience</a>
+                    <a href="#career-info" class="profile-link">Career Info</a>
+                    <a href="{% url 'auth:logout' %}" class="profile-link">Logout</a>
+                </div>
+            </div>             
+            <div class="profile-content">
+                {% if messages %}
+                {% for message in messages %}
+                  <div class='alert alert-{{ message.tags }}'>
+                    <span class="closebtn">&times;</span>
+                      {{ message }}
+                  </div>    
+                {% endfor %}
+              {% endif %}
+                <div class="profile-section">
+                    <div class="profile-content-title" id="personal-info">
+                        <h3>Personal Info</h3>
+                        <div>
+                            <a href="#" id="openModalButton"><i class='fas fa-pencil-alt edit'></i></a>
+                        </div>
+
+                    </div>
+                    <div class="margin20">
+                    <div class="info">
+                        <div><b>Full name</b><p>{{ candidate.fullname }}</p></div>
+                        <div><b>Gender</b><p>
+                            {% if candidate.gender %}
+                                {{ candidate.gender }}
+                            {% else %}
+                                <a href="{% url 'job_seeker:profile' %}">Add Gender</a>
+                            {% endif %}
+                        </p></div>
+                        <div><b>Email</b><p>{{ candidate.user.email }}</p></div>
+                        <div><b>Languages</b><p>{{ candidate.languages }}</p></div>
+                        <div><b>Phone No</b><p>{{ candidate.user.mobile_no }}</p></div>
+                        <div><b>Preferred work location</b><p> Chennai - Tamil Nadu</p></div>
+                        <div><b>Date of birth</b><p>
+                            {% if candidate.dob %}
+                                {{ candidate.dob }}
+                            {% else %}
+                                <a href="{% url 'job_seeker:profile' %}">Add DOB</a>
+                            {% endif %}
+                        </p></div>
+                        <div><b>Work status</b><p>{{ candidate.work_status }}</p></div>
+                        <div><b>Location</b><p>
+                            {% if candidate.city and candidate.state and candidate.country %}
+                                {{ candidate.city }}, {{ candidate.state }}, {{ candidate.country }}
+                            {% else %}
+                                <a href="{% url 'job_seeker:profile' %}">Add Location</a>
+                            {% endif %}
+                        </p></div>
+                        <div><b>Resume</b><p><a>View</a> or<a> Update</a></p></div>
+                        <div><b>LinkedIn profile</b><p>
+                        {% if candidate.linkedin_profile %}
+                            <a href="{{ candidate.linkedin_profile }}" target="_blank">{{ candidate.linkedin_profile }}</a>
+                        {% else %}
+                                <a href="{% url 'job_seeker:profile' %}">Add LinkedIn profile</a>
+                        {% endif %}
+                        </p></div>
+
+                    </div>
+                    </div>
+                </div>
+    
+                <div class="profile-section">
+                    <div class="profile-content-title" id="education">
+                        <h3>Education</h3>
+                        <div>
+                            <a href="#" id="openModalButton2"><i class='fas fa-plus edit'></i></a>
+                            <a href="#" id="openModalButton"><i class='fas fa-pencil-alt edit'></i></a>
+                        </div>
+                    </div>
+                    <div class="margin20">
+                    <div class="education-item">
+                        <div class="degree">
+                            <b class="university">Anna University</b>
+                            <p class="stream">Master’s degree in Information Technology</p>
+                        </div>
+                        <div class="date">
+                            <p>May 2025</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="degree">
+                            <b class="university">MIT University</b>
+                            <p class="stream">Bachelor’s degree in Information Technology</p>
+                        </div>
+                        <div class="date">
+                            <p>May 2022</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="degree">
+                            <b class="university">VIIT University</b>
+                            <p class="stream">Diploma courses in Computer Science</p>
+                        </div>
+                        <div class="date">
+                            <p>May 2019</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+    
+                <div class="profile-section">
+                    <div class="profile-content-title" id="skills">
+                        <h3>Skills</h3>
+                        <div>
+                            <a href="#" id="openModalButton2"><i class='fas fa-plus edit'></i></a>
+                            <a href="#" id="openModalButton"><i class='fas fa-pencil-alt edit'></i></a>
+                        </div>
+                    </div>
+                    <div class="skills margin20">
+                        {% if skills_list %}
+                        {% for skill in skills_list %}
+                        {% if skill %}
+                          <span>{{ skill }}</span>
+                        {% else %}
+                        {% endif%}
+                        {% endfor %}
+                      {% else %}
+                        <span>No skills provided</span>
+                      {% endif %}
+                    </div>
+                </div>
+    
+                <div class="profile-section">
+                    <div class="profile-content-title" id="experience">
+                        <h3>Experience</h3>
+                        <div>
+                            <a href="#" id="openModalButton2"><i class='fas fa-plus edit'></i></a>
+                            <a href="#" id="openModalButton"><i class='fas fa-pencil-alt edit'></i></a>
+                        </div>
+                    </div>
+                    <div class="margin20">
+                    <div class="education-item">
+                        <div class="degree">
+                            <b class="university">Web developer</b>
+                            <p class="stream">ABC Company Pvt Ltd</p>
+                        </div>
+                        <div class="date">
+                            <p>May 2023</p>
+                            <p>Internship</p>
+                        </div>
+                    </div>
+                    <div class="education-item">
+                        <div class="degree">
+                            <b class="university">Web Designer</b>
+                            <p class="stream">ABC Company Pvt Ltd</p>
+                        </div>
+                        <div class="date">
+                            <p>May 2024</p>
+                            <p>Part-time</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <div class="profile-content-title" id="career-info">
+                        <h3>Career Info</h3>
+                        <div>
+                            <a href="#" id="openModalButton"><i class='fas fa-pencil-alt edit'></i></a>
+                            {% comment %} <a href="#" id="openModalButton2"><i class='fas fa-plus edit'></i></a> {% endcomment %}
+
+                        </div>
+                    </div>
+                    <div class="margin20">
+                    <div class="info">
+                        <div><b>Current CTC</b><p>3 LPA</p></div>
+                        <div><b>Expected CTC</b><p>4 LPA</p></div>
+                        <div><b>Current take-home</b><p>2.7 LPA</p></div>
+                        <div><b>Expected take-home</b><p>3.8 LPA</p></div>
+                        <div><b>Total years of experience</b><p>6 years</p></div>
+                        <div><b>Notice period</b><p>2 Months</p></div>
+
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <form method="post" action="#">
+                            {% csrf_token %}
+                      <div class="modal-content">
+                  
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h3 class="modal-title">Edit Personal Info</h3>
+                          <button type="button" class="btn-close" id="closeModalButton"><i class='fas fa-times edit'></i></button>
+                        </div>
+                  
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                        <div class="margin20">
+                        <div class="">
+                        <div><b>First name</b>
+                            <input type="text" id="firstname" name="firstname" value="{{ candidate.firstname|default_if_none:'' }}" required>
+                        </div>
+                        <div><b>Last name</b>
+                            <input type="text" id="lastname" name="lastname" value="{{ candidate.lastname|default_if_none:'' }}" required>
+                        </div>
+                        <div><b>Email</b><p>{{ candidate.user.email }}</p></div>
+                        <div><b>Phone No</b><p>{{ candidate.user.mobile_no }}</p></div>
+                        <div><b>Date of birth</b>
+                            <input type="date" id="dob" name="dob" value="{{ candidate.dob|default_if_none:'' }}">
+                        </div>
+                        <div><b>Country</b>
+                            <input type="text" id="country" name="country" value="{{ candidate.country|default_if_none:'' }}">
+                        </div>
+                        <div><b>State</b>
+                            <input type="text" id="state" name="state" value="{{ candidate.state|default_if_none:'' }}">
+                        </div>
+                        <div><b>City</b>
+                            <input type="text" id="city" name="city" value="{{ candidate.city|default_if_none:'' }}">
+                        </div>
+                        <div><b>Gender</b>
+                            <select id="gender" name="gender">
+                                <option value="">Select</option>
+                                <option value="Male" {% if candidate.gender == 'Male' %}selected{% endif %}>Male</option>
+                                <option value="Female" {% if candidate.gender == 'Female' %}selected{% endif %}>Female</option>
+                                <option value="Other" {% if candidate.gender == 'Other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                        <div><b>Marital Status</b>
+                            <select id="marital_status" name="marital_status">
+                                <option value="">Select</option>
+                                <option value="Single" {% if candidate.marital_status == 'Single' %}selected{% endif %}>Single</option>
+                                <option value="Married" {% if candidate.marital_status == 'Married' %}selected{% endif %}>Married</option>
+                            </select>
+                        </div>
+                        <div><b>Languages</b>
+                            <input type="text" id="languages" name="languages" value="{{ candidate.languages|default_if_none:'' }}">
+                        </div>
+                        <div><b>Preferred work location</b><input type="text" value="Chennai - Tamil Nadu" /></div>
+                        <div><b>LinkedIn profile</b>
+                            <input type="text" id="linkedin_profile" name="linkedin_profile" value="{{ candidate.linkedin_profile|default_if_none:'' }}">
+                            {% comment %} change type to url {% endcomment %}
+                        </div>
+                        <div><b>Work status</b><br>
+                            <select id="work_status" name="work_status">
+                                <option value="">Select</option>
+                                <option value="Fresher" {% if candidate.work_status == 'Fresher' %}selected{% endif %}>Fresher</option>
+                                <option value="Experienced" {% if candidate.work_status == 'Experienced' %}selected{% endif %}>Experienced</option>
+                            </select>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                  
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-save" id="">Save</button>
+                        </div>
+                  
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+
+
+
+
+    <script type="text/javascript">
+{% comment %}  {% endcomment %}
+  // Get modal and close button elements
+  var modal = document.getElementById("myModal");
+  var openButton = document.getElementById("openModalButton");
+  var closeButton = document.getElementById("closeModalButton");
+  var closeFooterButton = document.getElementById("closeModalFooterButton");
+
+  // Function to open modal
+  openButton.onclick = function() {
+    modal.style.display = "block";
+  };
+
+  // Function to close modal
+  closeButton.onclick = function() {
+    modal.style.display = "none";
+  };
+
+  // Close modal with footer button
+  closeFooterButton.onclick = function() {
+    modal.style.display = "none";
+  };
+
+  // Close the modal when clicking outside of it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+
+
+    </script>
+
+    {% endblock content %}
