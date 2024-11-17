@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-t8ovx6ha2tj2hhamki83z2^z2_7!#x24=hr-a19xv0_ztdrkcz
 # SECURITY WARNING: don't run with debug turned on in production! https://69fc-103-163-248-172.ngrok-free.app
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost','69fc-103-163-248-172.ngrok-free.app']
-CSRF_TRUSTED_ORIGINS = ['https://69fc-103-163-248-172.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','3.27.217.103']
+CSRF_TRUSTED_ORIGINS = ['https://3.27.217.103']
 
 # ALLOWED_HOSTS = []
 
@@ -96,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'placeme_hrms',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': '',
         'HOST': 'localhost',  
         'PORT': '3306',        
     }
