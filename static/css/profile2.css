@@ -1,0 +1,248 @@
+main {
+    margin-top: 60px;    
+    height: calc(100vh - 100px);
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    background-color: #c0c5f2;
+}
+
+.profile-content {
+    margin: 20px 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    /* width: 80%; */
+    min-width: 800px;
+    max-width: 70%;
+    min-height: calc(100vh - 140px); /* Content area will occupy at least this height */
+    max-height: fit-content; /* Let it grow as needed */
+    overflow-y: auto; /* Enables scrolling only when content overflows */
+    overflow-x: hidden; /* Avoid horizontal scroll */
+}
+
+.profile-content-links {
+    margin: 20px 0 20px 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    /* width: 80%; */
+    min-width: 250px;
+    max-width: 20%;
+    position: sticky;
+    top: 20px;
+    min-height: fit-content;
+    max-height: calc(100vh - 100px);
+}
+/* side bar styling */
+.username {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    text-align: center;
+}
+
+
+.profile-links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    align-items: center;
+}
+
+
+.profile-link {
+    text-decoration: none;
+    color: #333;
+    background-color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 80%; 
+    transition: background-color 0.3s; 
+}
+
+.profile-link:hover {
+    background-color: #ddd;
+}
+/* profile pic  */
+.profile-picture{
+    margin: 20px auto;
+    height: 150px;
+    width: 150px;
+    border: solid 1px #D9D9D9;
+    border-radius: 50%;
+    overflow: hidden; 
+    position: relative;
+}
+
+.profile-picture img{
+    height: 100%;
+    width: 100%;
+}
+
+
+.profile-picture:hover img{
+    opacity: .3;
+}
+
+.profile-pic-middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.profile-picture:hover .image {
+  opacity: 0.3;
+}
+
+.profile-picture:hover .profile-pic-middle {
+  opacity: 1;
+}
+
+.profile-pic-edit {
+  background-color: #141b5f;
+  color: #fff;
+  padding: 7.5px 15px;
+  border-radius: 20em;
+  border: 1px #141b5f solid;
+    transition: .5s ease;
+}
+.profile-pic-edit:hover {
+  background-color: #FFBD03;
+  color: #000;
+  border: 1px #FFBD03 solid;
+}
+
+
+
+
+/* Sections */
+
+p {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #666;
+}
+
+.profile-section {
+    margin: 20px;
+}
+
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 5px;
+    column-gap: 10px;
+}
+
+.info div {
+    font-size: 14px;
+}
+.info b {
+    color: #333;
+}
+
+.edit {
+    grid-column: span 2;
+    text-align: right;
+}
+
+.edit a {
+    font-size: 14px;
+    color: #555;
+    text-decoration: none;
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skills span {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+.profile-logout{
+    display: flex;
+    justify-content: flex-end; 
+}
+.logout {
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #141b5f;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .5s;
+
+}
+
+.logout:hover {
+    background-color: #FFBD03;
+}
+
+
+
+.profile-content-title{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: #555 solid;
+}
+
+i.edit{
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease; 
+}
+
+
+i.edit:hover {
+    color: #141b5f;
+    transform: scale(1.2); 
+}
+/* .profile-section a:hover{
+    color: #141b5f;
+} */
+
+.education-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.degree p {
+    margin: 0;
+    text-align: left;
+}
+
+.degree .university{
+    color: #333;
+}
+.degree .stream{
+    color: #555;
+}
+
+.date p {
+    margin: 0;
+    text-align: right;
+    font-size: 14px;
+    color: #555;
+}
+.margin20{
+    margin: 20px
+}
+
+
