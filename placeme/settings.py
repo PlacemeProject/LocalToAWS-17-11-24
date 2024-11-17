@@ -95,8 +95,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'placeme_hrms',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'vengat',
+        'PASSWORD': 'Str0ng@Password!',
         'HOST': 'localhost',  
         'PORT': '3306',        
     }
